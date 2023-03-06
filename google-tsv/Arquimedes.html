@@ -1,0 +1,163 @@
+<!-- 
+Autor: Dre (2023)
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arquímedes</title>
+    <link rel="shortcut icon" href="icons/favicon.ico" />
+    <link rel="stylesheet" href="css/style.css" />
+    <!--
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.2.1/dist/sweetalert2.all.min.js"></script>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    -->
+
+    <link rel="stylesheet" href="lib/animate.min.css"/>
+    <script src="lib/jquery-3.6.0.js"></script>
+    <script src="lib/sweetalert2.all.min.js"></script>
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jszip.js"></script>
+    <script src="lib/xlsx.js"></script>
+
+  </head>
+
+  <body>
+    <!-- Este es el script que hace que el fondo sea animado, y con los colores morados -->
+    <script>
+      anguloFondo = 0;
+      setInterval(() => {
+        anguloFondo += 1;
+        document.body.style.background = `linear-gradient(${anguloFondo}deg,#274E13, #8FCE00)`;
+      }, 20);
+    </script>
+
+<nav class="navMenu">
+  <a href="Arquimedes.html">Inicio</a>
+  <a href="#">Instrucciones de uso</a>
+  <a href="https://goo.gl/maps/GhEPyqJwdGXDAbfs6" target="_blank">Ubicación</a>
+  <a href="https://www.facebook.com/preuniversitario.arquimedes.cue" target="_blank">Facebook</a>
+  <a href="https://walink.co/d3bdca" target="_blank">WhatsApp</a>
+  <div class="dot"></div>
+</nav>
+
+    <div id="Contenedor">
+      <!-- presentación del juego, con el texto inicial -->
+      <div id="Presentacion">
+        <a href="https://www.facebook.com/preuniversitario.arquimedes.cue" target="_blank"><img  src="icons/Arquimedes.png"  id="portada" width="50%"/></a>
+      </div>
+
+      <!-- Formulario para subir los archivos en excel-->
+      <form enctype="multipart/form-data">
+        <input id="upload" type=file name="files[]">
+      </form>
+
+      <!-- Tablero de historial de las últimas partidas jugadas -->
+      <div id="ranking">
+        
+        <h2>Historial</h2>
+        <table cellspacing="0" cellpadding="0">
+          <tr>
+            <th>Nombre</th>
+            <th>Calificación (Tiempo H:M:S)</th>
+          </tr>
+          <tbody id="tablaRanking"></tbody>
+        </table>
+        <br>
+        <!-- start Quiz button -->
+        <div class="start_btn"><button>Iniciar</button></div>
+        
+      </div>
+
+      <!-- Info Box -->
+      <div class="info_box">
+        <div class="info-title"><span>Reglas del simulador</span></div>
+        <div class="info-list">
+            <div class="info">1. Solo tendrás <span>60 segundos</span> para responder cada pregunta.</div>
+            <div class="info">2. Una vez que seleccionas tu respuesta, no se puede deshacer.</div>
+            <div class="info">3. No puedes seleccionar ninguna opción una vez que se acaba el tiempo.</div>
+            <div class="info">4. No puedes salir del Quiz mientras está corriendo el tiempo.</div>
+            <div class="info">5. Obtendrás puntos con base en tus respuestas correctas.</div>
+        </div>
+        <div class="buttons">
+            <button class="quit">Salir</button>
+            <div onclick="iniciarJuego();_controlHTML.cambiarPantalla('juego')">
+              <button class="restart">Continuar</button>
+            </div>
+            <!-- <div class="btn" onclick="iniciarJuego();_controlHTML.cambiarPantalla('juego')">
+              Continuar
+            </div> -->
+        </div>
+      </div>
+
+      <!-- Pantalla de juego, donde aparecen las preguntas, el puntaje, los botones y las imágenes  -->
+      <div id="Juego" style="display: none">
+        <div id="contenedorPreguntas">
+          <header>
+            <div id="categoria">La base de datos no se cargó</div>
+            <div class="timer">
+              <div class="time_left_txt">Tiempo</div>
+              <div id="cronometro">00:00:00</div>
+            </div>
+            <div class="time_line"></div>
+          </header>
+          <div id="pregunta">La base de datos no se cargó</div>
+          <br>
+          <div style="text-align: center">
+            <img src="" id="imagen" />
+          </div>
+          <br>
+          <div class="btn" id="btn1" onclick="validarRespuesta(0)">
+            La base de datos no se cargó
+          </div>
+          <div class="btn" id="btn2" onclick="validarRespuesta(1)">
+            La base de datos no se cargó
+          </div>
+          <div class="btn" id="btn3" onclick="validarRespuesta(2)">
+            La base de datos no se cargó
+          </div>
+          <div class="btn" id="btn4" onclick="validarRespuesta(3)">
+            La base de datos no se cargó
+          </div>
+        </div>
+        <div class="temp">
+        <div class="btnRojo" onclick="terminarJuegoVoluntario()">
+          Finalizar simulador
+        </div>
+        <div id="_puntaje">0</div>
+      </div>
+        
+        <!--<div style="width: 400px; text-align: right; padding: 0">
+          <div class="btn" style="width: 100px; display: none; padding: 5px" onclick="borrarSaldo()" >
+            Borrar saldo
+          </div>
+
+          <p class= "piePagina">
+      <a href="https://www.facebook.com/preuniversitario.arquimedes.cue" target="_blank"><img  src="icons/fb.png"  id="redesSociales" width="3%"/></a>
+      <a href="https://www.facebook.com/preuniversitario.arquimedes.cue" target="_blank"><img  src="icons/wpp.png"  id="redesSociales" width="3%"/></a>
+    </p>
+
+        </div>-->
+      </div>
+    </div>
+    
+    <!-- Una vez creado el HTML se importan las librerias JS -->
+    <script src="js/controlHTML.js"></script>
+    <script src="js/BD.js"></script>
+    <script src="js/cronometro.js"></script>
+    <script src="js/puntajehistorial.js"></script>
+    <script src="js/juego.js"></script>
+  </body>
+
+</html>

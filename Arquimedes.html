@@ -1,0 +1,134 @@
+<!-- 
+Autor: Dre (2023)
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arquímedes</title>
+    <link rel="shortcut icon" href="icons/favicon.ico" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="lib/animate.min.css"/>
+    <script src="lib/jquery-3.6.0.js"></script>
+    <script src="lib/sweetalert2.all.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jszip.js"></script>
+    <script src="lib/xlsx.js"></script>
+
+  </head>
+
+  <body>
+    <!-- Este es el script que hace que el fondo sea animado, y con los colores morados -->
+    <script>
+      anguloFondo = 0;
+      setInterval(() => {
+        anguloFondo += 1;
+        document.body.style.background = `linear-gradient(${anguloFondo}deg,#274E13, #8FCE00)`;
+      }, 20);
+    </script>
+
+<nav class="navMenu">
+  <a href="Arquimedes.html">Inicio</a>
+  <a href="https://goo.gl/maps/GhEPyqJwdGXDAbfs6" target="_blank">Ubicación</a>
+  <a href="https://www.facebook.com/preuniversitario.arquimedes.cue" target="_blank">Facebook</a>
+  <a href="https://walink.co/d3bdca" target="_blank">WhatsApp</a>
+  <div class="dot"></div>
+</nav>
+
+    <div id="Contenedor">
+      <!-- presentación del juego, con el texto inicial -->
+      <div id="Presentacion">
+        <a href="https://www.facebook.com/preuniversitario.arquimedes.cue" target="_blank"><img  src="icons/Arquimedes.png"  id="portada" width="50%"/></a>
+      </div>
+
+      <!-- Tablero de historial de las últimas partidas jugadas -->
+      <div id="ranking">
+        <h2>Historial</h2>
+        <table cellspacing="0" cellpadding="0">
+          <tr>
+            <th>Nombre</th>
+            <th>Aciertos (Tiempo HH:MM:SS)</th>
+          </tr>
+          <tbody id="tablaRanking"></tbody>
+        </table>
+        <br>
+        <!-- start Quiz button -->
+        <div class="start_btn"><button>Iniciar</button></div>
+      </div>
+
+      <!-- Info Box -->
+      <div class="info_box">
+        <div class="info-title"><span>Reglas del simulador</span></div>
+        <div class="info-list">
+            <div class="info">1. Selecciona el <span>cuestionario</span> con la dificultad deseada.</div>
+            <div class="info">2. El simulador <span>iniciará automáticamente</span> una vez seleccionado 
+              el cuestionario.</div>
+            <div class="info">3. Lee la pregunta y selecciona tu respuesta.</div>
+            <div class="info">4. Una vez que seleccionas tu respuesta, no se puede deshacer.</div>
+            <div class="info">5. Si la respuesta fue <span>correcta</span>, pasará a la siguiente pregunta. 
+              <span>Caso contrario</span> te mostrará un mensaje indicando la respuesta correcta.
+            </div>
+            <div class="info">6. Puedes finalizar el simulador <span>cuando quieras</span>, 
+              al final debes colocar tu nombre para guardar tus aciertos y el tiempo que tardaste.</div>
+            <div class="info">7. Las preguntas se visualizan de <span>manera aleatoria</span>.</div>
+        </div>
+        <div class="buttons">
+            <!-- Botón para salir-->
+            <button class="quit">Salir</button>
+            <!-- Formulario para subir los archivos en excel-->
+            <!-- e iniciar el juego-->
+            <form enctype="multipart/form-data">
+              <input class="restart custom-file-input" id="upload" type=file name="files[]" >
+            </form>
+        </div>
+      </div>
+
+      <!-- Pantalla de juego, donde aparecen las preguntas, el puntaje, los botones y las imágenes  -->
+      <div id="Juego" style="display: none">
+        <div id="contenedorPreguntas">
+          <header>
+            <div id="categoria">La base de datos no se cargó</div>
+            <div class="timer">
+              <div class="time_left_txt">Tiempo</div>
+              <div id="cronometro">00:00:00</div>
+            </div>
+            <div class="time_line"></div>
+          </header>
+          <div id="pregunta">La base de datos no se cargó</div>
+          <br>
+          <div style="text-align: center">
+            <img src="" id="imagen" />
+          </div>
+          <br>
+          <div class="btn" id="btn1" onclick="validarRespuesta(0)">
+            La base de datos no se cargó
+          </div>
+          <div class="btn" id="btn2" onclick="validarRespuesta(1)">
+            La base de datos no se cargó
+          </div>
+          <div class="btn" id="btn3" onclick="validarRespuesta(2)">
+            La base de datos no se cargó
+          </div>
+          <div class="btn" id="btn4" onclick="validarRespuesta(3)">
+            La base de datos no se cargó
+          </div>
+        </div>
+        <div class="temp">
+        <div class="btnRojo" onclick="terminarJuegoVoluntario()">
+          Finalizar simulador
+        </div>
+        <div id="_puntaje">0</div>
+      </div>
+    </div>
+    
+    <!-- Una vez creado el HTML se importan las librerias JS -->
+    <script src="js/controlHTML.js"></script>
+    <script src="js/BD.js"></script>
+    <script src="js/cronometro.js"></script>
+    <script src="js/puntajehistorial.js"></script>
+    <script src="js/juego.js"></script>
+  </body>
+
+</html>

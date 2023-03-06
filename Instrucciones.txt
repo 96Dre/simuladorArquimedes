@@ -1,0 +1,12 @@
+*** Versión de Computador ***
+1. Ejecute el archivo Arquimedes.html que se encuentra dentro de la carpeta Arquimedes.
+
+*** Versión movil (Android) ***
+1. Copiar la carpeta Arquimedes en la raiz del almacenamiento interno del dispositivo. 
+Es decir, la carpeta debe ser copiada en la memoria del dispositivo
+(no en tarjeta SD, ni almacenamientos externos y tampoco dentro de otras carpetas)
+2. Entrar en el navegador.
+3. Seleccionar "Sitio Versión Escritrio".
+4. Ingresar a la siguiente url.
+
+file:///sdcard/Arquimedes/Arquimedes.html
